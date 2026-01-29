@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Butterflyera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            background-image: radial-gradient(circle at top center, #ffffff 0%, #f9f9f9 100%);
+            color: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease forwards;
+            opacity: 0; 
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 50px 25px;
+            text-align: center;
+        }
+
+        /* --- PROFILE SECTION --- */
+        .profile-container {
+            margin-bottom: 25px;
+            animation-delay: 0.1s;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #800000; /* Maroon Border */
+            box-shadow: 0 10px 25px rgba(128, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+            background-color: #fff;
+            padding: 4px;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.03);
+            border-color: #b30000;
+        }
+
+        .owner-name {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #800000;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom:20px ;
+        }
+
+        /* --- MAIN TITLE --- */
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: #000;
+            background: linear-gradient(45deg, #000000 30%, #800000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation-delay: 0.2s;
+        }
+
+        /* --- BIO --- */
+        .bio {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 45px;
+            font-weight: 400;
+            padding: 0 15px;
+            animation-delay: 0.3s;
+        }
+
+        /* --- LINKS SECTION --- */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            animation-delay: 0.4s;
+            margin-bottom: 50px;
+        }
+
+        .link-card {
+            display: block;
+            text-decoration: none;
+            background: #ffffff;
+            color: #1a1a1a;
+            padding: 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .link-card:hover {
+            background: #800000;
+            color: #ffffff;
+            border-color: #800000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(128, 0, 0, 0.2);
+        }
+
+        /* --- RIDDLE SECTION --- */
+        .riddle-section {
+            background: #fdfdfd;
+            border: 1px dashed #d1d1d1;
+            padding: 30px 20px;
+            border-radius: 10px;
+            animation-delay: 0.6s;
+            position: relative;
+        }
+        
+        .riddle-section::before {
+            content: '???';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 0 10px;
+            color: #800000;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+        }
+
+        .riddle-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .secret-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #aaa;
+            color: #000;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .secret-input:focus {
+            border-bottom: 1px solid #800000;
+        }
+
+        .submit-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #800000;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-height: 20px;
+        }
+        
+        .success-msg { color: #008000; }
+        .error-msg { color: #b30000; }
+
+        /* The Hidden Link Button */
+        #final-secret-link {
+            display: none;
+            margin-top: 20px;
+            background: #800000;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(128, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 70px;
+            font-size: 0.7rem;
+            color: #999;
+            letter-spacing: 1px;
+            animation-delay: 0.8s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile-container fade-in">
+            <img src="https://lh3.googleusercontent.com/d/1gnIumRvAT-yr3T-K17_l2hYGrRWFUNKS" alt="Profile Picture" class="profile-img">
+            <div class="owner-name"> 
+            Basyarmahfudz</div>
+        <h1 class="main-title fade-in">WELCOME TO<br>PROJECT BUTTERFLYERA</h1>
+
+        <p class="bio fade-in">
+            Sebuah project yang diciptakan oleh manusia yang benci segala bentuk penindasan. 
+            .
+        </p>
+
+        <div class="links-container fade-in">
+            <a href="https://medium.com/@projectbutterflyera" target="_blank" class="link-card">Medium</a>
+            
+            <a href="https://www.instagram.com/basyarmahfudz?igsh=MTF3MmcydncwOGt6Nw==" target="_blank" class="link-card">Instagram</a>
+            
+            <a href="https://medium.com/@basyarmahfudz_" target="_blank" class="link-card">Medium 2</a>
+            
+            <a href="https://threads.net/@basyarmahfudz" target="_blank" class="link-card">Threads</a>
+        </div>
+
+        <div class="riddle-section fade-in">
+            <p class="riddle-text">
+                "Adik yang jaga kakak nya, anak monyet yang jaga petugas kebon binatang. <br>
+                Kalo kamu bilang hati hati, kalo aku?" 
+                
+                pakai huruf kapital semua
+            </p>
+            
+            <input type="password" id="secret-pass" class="secret-input" placeholder="Jawab di sini...">
+            <br>
+            <button class="submit-btn" onclick="checkPassword()">Kirim Jawaban</button>
+            
+            <p id="feedback-msg" class="message"></p>
+
+            <a href="https://medium.com/@diaryikal" id="final-secret-link" target="_blank">
+
+
+                BUKA RAHASIA
+            </a>
+        </div>
+
+        <footer class="fade-in">
+            Project Butterflyera &copy; 2026
+        </footer>
+    </div>
+
+    <script>
+        function checkPassword() {
+            // JAWABAN SANDI
+            const correctPassword = "JANTUNG JANTUNG"; 
+            
+            const input = document.getElementById('secret-pass').value.toUpperCase().trim();
+            const msg = document.getElementById('feedback-msg');
+            const link = document.getElementById('final-secret-link');
+            const inputField = document.getElementById('secret-pass');
+            const btn = document.querySelector('.submit-btn');
+
+            if (input === correctPassword) {
+                // Jika Benar
+                msg.textContent = "Akses Diberikan.";
+                msg.className = "message success-msg";
+                link.style.display = "block"; 
+                
+                inputField.style.display = "none";
+                btn.style.display = "none";
+                
+            } else {
+                // Jika Salah
+                msg.textContent = "Jawaban salah. Coba lagi.";
+                msg.className = "message error-msg";
+                
+                const container = document.querySelector('.riddle-section');
+                container.style.transform = "translateX(5px)";
+                setTimeout(() => { container.style.transform = "translateX(0)"; }, 100);
+            }
+        }
+    </script>
+</body>
+</html>
